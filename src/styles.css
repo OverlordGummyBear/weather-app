@@ -1,0 +1,7 @@
+:user-valid{
+    border: 2px solid green;
+}
+
+:user-invalid{
+    border: 2px solid red;
+}

@@ -2,10 +2,44 @@ import "./styles.css";
 import getWeatherData from "./weather-api.js";
 import icons from "./icons.js";
 
-const weatherData = await getWeatherData("København");
+let weatherData;
 
-console.log(weatherData.icon);
+const weatherForm = document.getElementById("weatherForm");
+const errorSpan = document.getElementById("formError");
 
-const weatherImg = document.getElementById("weatherIcon");
-weatherImg.src = icons[weatherData.icon];
+weatherForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    validatePlace();
+
+    const isFormValid = weatherForm.checkValidity();
+
+    if(isFormValid){
+        const location = place.value;
+        weatherData = await getWeatherData(location);
+        weatherForm.reset();
+
+        if(weatherData.hasOwnProperty('location')){
+
+        } else{
+            console.log(weatherData);
+        }
+    } else{
+        errorSpan.textContent = "Please provide a valid location";
+    }
+    
+});
+
+const place = document.getElementById("place");
+place.addEventListener("input", () => validatePlace());
+
+function validatePlace(){
+    place.setCustomValidity("");
+
+    if(place.validity.valueMissing || place.value.trim().length === 0){
+        place.setCustomValidity("Location is required");
+    }
+
+    errorSpan.textContent = place.validationMessage;
+}
 

@@ -8,6 +8,8 @@ async function getWeatherData(location){
 
         const result = await response.json();
 
+        console.log(result)
+
         return {
             humidity: result.currentConditions.humidity,
             windpeed: result.currentConditions.windpeed,
@@ -15,9 +17,10 @@ async function getWeatherData(location){
             tempFeelsLike: result.currentConditions.feelslike,
             icon: result.currentConditions.icon,
             temp: result.currentConditions.temp,
+            location: result.resolvedAddress,
         }
     } catch (error) {
-        console.log("No result");
+        return "No data found";
     }
 }
 

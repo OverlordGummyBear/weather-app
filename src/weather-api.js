@@ -8,6 +8,8 @@ async function getWeatherData(location){
 
         const result = await response.json();
 
+        console.log(result)
+
         return {
             humidity: result.currentConditions.humidity,
             windspeed: result.currentConditions.windspeed,

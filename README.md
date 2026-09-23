@@ -1,16 +1,25 @@
-# template_webpack
+# Weather app
+A simple weather app that lets you search for any city and see its current conditions at a glance.
 
-## Setup
-1. Clone or use this template
-2. `npm install`
+## Features
+It is possible to 
+* Search for any city and get live weather data (via the Visual Crossing Weather API)
+* View temperature, humidity, windspeed, and current conditions with a matching weather icon
+* Toggle between Celsius and Fahrenheit
 
-## Development
-`npm run dev` — starts the dev server
+## Live Demo
+Live Demo: https://overlordgummybear.github.io/weather-app/
 
-## Build
-`npm run build` — production build to `dist/`
+## Getting Started
+Clone the repo and install dependencies.
+```bash
+git clone https://github.com/OverlordGummyBear/weather-app.git
+cd weather-app
+npm install
+```
 
-## Deploying to GitHub Pages
-1. `npm run build`
-2. `git add dist -f && git commit -m "Deployment commit"`
-3. `npm run deploy`
+Then start the development server:
+```bash
+npm run dev
+```
+Open `http://localhost:8080` in your browser.

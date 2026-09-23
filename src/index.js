@@ -6,6 +6,7 @@ class WeatherViewer{
     weatherData;
 
     constructor(){
+        this.infoDiv = document.getElementById("info-container");
         this.weatherForm = document.getElementById("weatherForm");
         this.place = document.getElementById("place");
         this.errorSpan = document.getElementById("formError");
@@ -26,7 +27,11 @@ class WeatherViewer{
                 if(this.weatherData.hasOwnProperty('location')){
 
                 } else{
-                    console.log(this.weatherData);
+                    this.infoDiv.textContent = "";
+                    const noDataMessage = document.createElement("h2");
+                    noDataMessage.textContent = this.weatherData;
+                    noDataMessage.classList = "no-data";
+                    this.infoDiv.appendChild(noDataMessage);
                 }
             } else{
                 this.errorSpan.textContent = "Please provide a valid location";

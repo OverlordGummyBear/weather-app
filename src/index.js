@@ -6,42 +6,42 @@ class WeatherViewer{
     weatherData;
 
     constructor(){
-        const weatherForm = document.getElementById("weatherForm");
-        const place = document.getElementById("place");
-        const errorSpan = document.getElementById("formError");
-        place.addEventListener("input", () => this.validatePlace());
+        this.weatherForm = document.getElementById("weatherForm");
+        this.place = document.getElementById("place");
+        this.errorSpan = document.getElementById("formError");
+        this.place.addEventListener("input", () => this.validatePlace());
         
-        weatherForm.addEventListener("submit", async (e) => {
+        this.weatherForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            validatePlace();
+            this.validatePlace();
 
-            const isFormValid = weatherForm.checkValidity();
+            const isFormValid = this.weatherForm.checkValidity();
 
             if(isFormValid){
-                const location = place.value;
-                weatherData = await getWeatherData(location);
-                weatherForm.reset();
+                const location = this.place.value;
+                this.weatherData = await getWeatherData(location);
+                this.weatherForm.reset();
 
-                if(weatherData.hasOwnProperty('location')){
+                if(this.weatherData.hasOwnProperty('location')){
 
                 } else{
-                    console.log(weatherData);
+                    console.log(this.weatherData);
                 }
             } else{
-                errorSpan.textContent = "Please provide a valid location";
+                this.errorSpan.textContent = "Please provide a valid location";
             }
         });
     }
 
     validatePlace(){
-        place.setCustomValidity("");
+        this.place.setCustomValidity("");
 
-        if(place.validity.valueMissing || place.value.trim().length === 0){
-            place.setCustomValidity("Location is required");
+        if(this.place.validity.valueMissing || this.place.value.trim().length === 0){
+            this.place.setCustomValidity("Location is required");
         }
 
-        errorSpan.textContent = place.validationMessage;
+        this.errorSpan.textContent = this.place.validationMessage;
     }
 
 }

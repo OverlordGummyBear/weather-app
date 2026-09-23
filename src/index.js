@@ -23,13 +23,20 @@ class WeatherViewer{
             const isFormValid = this.weatherForm.checkValidity();
 
             if(isFormValid){
+                //loading component while fetching
+                this.infoDiv.style.visibility = "visible";
+                this.infoDiv.textContent = "";
+                const fetchingDataMessage = document.createElement("h2");
+                fetchingDataMessage.textContent = "Loading data";
+                this.infoDiv.appendChild(fetchingDataMessage);
+
+                //fetch data
                 const location = this.place.value;
                 this.weatherData = await getWeatherData(location);
                 this.weatherForm.reset();
 
-                this.infoDiv.style.visibility = "visible";
-
                 if(this.weatherData.hasOwnProperty('location')){
+                    this.infoDiv.textContent = "";
                     this.displayWeatherData();
                 } else{
                     this.infoDiv.textContent = "";

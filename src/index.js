@@ -2,44 +2,61 @@ import "./styles.css";
 import getWeatherData from "./weather-api.js";
 import icons from "./icons.js";
 
-let weatherData;
+class WeatherViewer{
+    weatherData;
 
-const weatherForm = document.getElementById("weatherForm");
-const errorSpan = document.getElementById("formError");
+    constructor(){
+        const weatherForm = document.getElementById("weatherForm");
+        const place = document.getElementById("place");
+        const errorSpan = document.getElementById("formError");
+        place.addEventListener("input", () => this.validatePlace());
+        
+        weatherForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-weatherForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+            validatePlace();
 
-    validatePlace();
+            const isFormValid = weatherForm.checkValidity();
 
-    const isFormValid = weatherForm.checkValidity();
+            if(isFormValid){
+                const location = place.value;
+                weatherData = await getWeatherData(location);
+                weatherForm.reset();
 
-    if(isFormValid){
-        const location = place.value;
-        weatherData = await getWeatherData(location);
-        weatherForm.reset();
+                if(weatherData.hasOwnProperty('location')){
 
-        if(weatherData.hasOwnProperty('location')){
+                } else{
+                    console.log(weatherData);
+                }
+            } else{
+                errorSpan.textContent = "Please provide a valid location";
+            }
+        });
+    }
 
-        } else{
-            console.log(weatherData);
+    validatePlace(){
+        place.setCustomValidity("");
+
+        if(place.validity.valueMissing || place.value.trim().length === 0){
+            place.setCustomValidity("Location is required");
         }
-    } else{
-        errorSpan.textContent = "Please provide a valid location";
-    }
-    
-});
 
-const place = document.getElementById("place");
-place.addEventListener("input", () => validatePlace());
-
-function validatePlace(){
-    place.setCustomValidity("");
-
-    if(place.validity.valueMissing || place.value.trim().length === 0){
-        place.setCustomValidity("Location is required");
+        errorSpan.textContent = place.validationMessage;
     }
 
-    errorSpan.textContent = place.validationMessage;
 }
+
+new WeatherViewer();
+
+
+
+
+
+
+
+
+
+
+
+
 
